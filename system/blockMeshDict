@@ -1,0 +1,110 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+scale	1;
+
+vertices
+(
+	(-2000 0 0)
+	(4000 0 0)
+	(4000 2200  0)
+	(-2000 2200 0)
+	(-2000 0 400)
+	(4000 0 400)
+	(4000 2200 400)
+	(-2000 2200 400)
+);
+
+blocks
+(
+	hex (0 1 2 3 4 5 6 7) (800 100 40) simpleGrading
+	(
+	  (
+	    (0.1 0.01 1)		//(配置　メッシュ数割合　勾配)
+	    (0.23 0.02 0.2)
+	    (0.333 0.95 1)
+	    (0.333 0.02 30)
+	  ) //x
+	  (
+	    (0.1 0.05 1)
+	    (0.8 0.9 1)
+	    (0.1 0.05 1)
+	  ) //y
+	  (
+	    (0.2 0.9 50)
+	    (0.8 0.1 5)
+	  ) //z
+	)
+);
+
+edges
+(
+);
+
+boundary
+(
+	inlet
+	{
+		type patch;
+		faces
+		(
+			(0 3 4 7)
+		);
+	}
+	outlet
+	{
+		type patch;
+		faces
+		(
+			(1 2 5 6)
+		);
+	}
+	ground
+	{
+		type wall;
+		faces
+		(
+			(0 1 2 3)
+		);
+	}
+	outerWall
+	{
+		type symmetryPlane;
+		faces
+		(
+			(2 3 6 7)
+		);
+	}
+	innerWall
+	{
+		type symmetryPlane;
+		faces
+		(
+			(0 1 4 5)
+		);
+	}
+	top
+	{
+		type wall;
+		faces
+		(
+			(4 5 6 7)
+		);
+	}
+);
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

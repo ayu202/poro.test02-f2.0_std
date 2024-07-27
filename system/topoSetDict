@@ -1,0 +1,63 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2006                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//樹高の指定
+H 4;
+
+actions
+(
+    {
+        name    noCells;
+        type    cellZoneSet;
+        action  clear;
+    }
+    {
+        name    noCells;
+        type    cellZoneSet;
+        action  invert;
+    }
+    {
+        name    noCells;
+        type    cellZoneSet;
+        action  subtract;
+        source  boxToCell;
+        box     (320 400 1) (326 1800 $H);
+    }
+
+
+    //sato - shisen
+    {
+        name    line0;
+        type    cellZoneSet;
+        action  clear;
+    }
+    {
+        name    line0;
+        type    cellZoneSet;
+        action  invert;
+    }
+    {
+        name    line0;
+        type    cellZoneSet;
+        action  new;
+        source  boxToCell;
+        box     (320 400 1) (326 1800 $H);
+    }
+
+);
+
+// ************************************************************************* //
